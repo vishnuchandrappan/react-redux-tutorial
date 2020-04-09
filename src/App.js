@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import Header from "./components/Header";
 import New from "./components/New";
 import Wall from "./components/Wall";
+
 export default class App extends Component {
   constructor() {
     super();
@@ -12,19 +14,19 @@ export default class App extends Component {
           id: 1,
           title: "Post One",
           image:
-            "https://i2.wp.com/desirecourse.net/wp-content/uploads/2020/04/8844488884.jpg?w=750&ssl=1",
+            "https://images.pexels.com/photos/2437299/pexels-photo-2437299.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
         },
         {
           id: 2,
           title: "Post Two",
           image:
-            "https://i0.wp.com/desirecourse.net/wp-content/uploads/2019/06/897977.jpg?resize=480%2C270&ssl=1",
+            "https://images.pexels.com/photos/2440296/pexels-photo-2440296.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
         },
         {
           id: 3,
           title: "Post Three",
           image:
-            "https://stackify.com/wp-content/uploads/2018/12/Ruby-Frameworks-1-881x441.jpg",
+            "https://images.pexels.com/photos/4054069/pexels-photo-4054069.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
         },
       ],
     };
@@ -33,6 +35,13 @@ export default class App extends Component {
   removePhoto = (photo) => {
     this.setState({
       posts: this.state.posts.filter((post) => post.id !== photo),
+    });
+  };
+
+  addNewPhoto = (photo) => {
+    photo.id = uuidv4();
+    this.setState({
+      posts: [photo, ...this.state.posts],
     });
   };
 
@@ -45,7 +54,17 @@ export default class App extends Component {
           <Wall posts={this.state.posts} onRemovePhoto={this.removePhoto} />
         </Route>
 
-        <Route path="/new" component={New} />
+        <Route
+          path="/new"
+          render={({ history }) => (
+            <New
+              onAddPhoto={(photo) => {
+                this.addNewPhoto(photo);
+                history.push("/");
+              }}
+            />
+          )}
+        />
       </div>
     );
   }
