@@ -15,9 +15,13 @@ class New extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.validated()
-      ? this.props.onAddPhoto(this.state.photo)
-      : alert("Invalid Input Values");
+
+    if (this.validated()) {
+      this.props.addPhoto(this.state.photo);
+      this.props.onHistory.push("/");
+    } else {
+      alert("Invalid Input Values");
+    }
   };
 
   changeHandler = (e, t) => {

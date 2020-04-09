@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-export default function Card({ post, onRemovePhoto }) {
+export default function Card({ post, removePhoto }) {
   return (
     <div className="card">
       <h3>{post.title}</h3>
@@ -8,7 +8,7 @@ export default function Card({ post, onRemovePhoto }) {
       <div className="btn-container">
         <button
           onClick={() => {
-            onRemovePhoto(post.id);
+            removePhoto(post.id);
           }}
         >
           Delete
@@ -20,5 +20,5 @@ export default function Card({ post, onRemovePhoto }) {
 
 Card.propTypes = {
   post: PropTypes.object.isRequired,
-  onRemovePhoto: PropTypes.func.isRequired,
+  removePhoto : PropTypes.func.isRequired
 };

@@ -5,7 +5,7 @@ export default function Wall(props) {
   return (
     <div className="wall">
       {props.posts.map((post) => (
-        <Card post={post} key={post.id} onRemovePhoto={props.onRemovePhoto} />
+        <Card post={post} key={post.id} {...props} />
       ))}
     </div>
   );
@@ -13,5 +13,4 @@ export default function Wall(props) {
 
 Wall.propTypes = {
   posts: PropTypes.array.isRequired,
-  onRemovePhoto: PropTypes.func.isRequired,
 };
